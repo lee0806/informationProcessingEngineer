@@ -149,5 +149,50 @@ try {
 
 - 리턴 / 예외가 발생해도 finally는 항상 실행 (System.exit() 같은 종료는 예외된다.)
 
+**예외 종류**
+
+**ArithmeticException** : 정수형에서 0으로 나눗셈, 오버플로우 유발 연산 등 산술 연산 오류
+
+```
+int x = 5 / 0; // ArithmeticException
+```
+
+**ArrayIndexOutOfBoundsException** : 배열에 대해 유효 범위를 벗어난 인덱스 접근 (음수, length 이상)
+
+```
+int[] a = {1, 2, 3};
+int x = a[3]; // 길이가 3이면 최대 인덱스는 2이므로 오류 발생
+```
+
+**NumberFormatException** : 숫자로 해석 불가능한 문자열을 정수 / 실수로 변환 시도
+
+```
+Integer.parseInt("12a"); // NumberFormatException
+```
+
+**NullPointerException** : null 참조에 점(.) 찍을 때
+
+```
+String s = null; s.length(); 
+// NullPointerException
+```
+
+**ClassCastException** : 잘못된 다운캐스팅
+
+```
+Object o = "hi";
+Integer x = (Integer) 0; // ClassCastException
+```
+
+
+
+
+
+
+**Exception** : 최상위 예외 타입
+
+
+
+
 ### 배열, 재귀, 분할 정복
 
