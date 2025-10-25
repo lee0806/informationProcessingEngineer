@@ -221,15 +221,6 @@ Object o = "hi";
 Integer x = (Integer) 0; // ClassCastException
 ```
 
-
-
-
-
-
 **Exception** : 최상위 예외 타입
 
-
-
-
-### 배열, 재귀, 분할 정복
 
