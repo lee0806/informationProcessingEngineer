@@ -126,6 +126,43 @@ class Child extends Parent { ... }
 
 > 생성자에서 호출한 메서드가 오버라이딩되어 있으면 자식 메서드가 먼저 실행될 수 있음 -> 아직 자식 필드가 완전히 초기화되지 않은 시점일 수 있어 주의
 
+### 오해하는 override 관계
+
+static 메서드의 경우 클래스에 속한 메서드이며 객체 (인스턴스)에 속한 메서드가 아니다.
+
+
+```
+public int x (int i) { return i + 2; }
+```
+
+-> 일반 메서드의 형태 : 인스턴스에 종속되므로 실제 객체 타입 기준으로 실행된다.
+
+```
+Parent ref = new Child();
+ref.x(2);
+```
+
+- ref의 타입은 Parent지만
+- 실제 생성된 객체는 Child이기 때문에
+- Child.x(int)가 실행된다.
+- 이는 동적 바인딩
+
+```
+public static String id() { return "p"; }
+```
+-> 이건 클래스에 소속된 정적 메서드 : 인스턴스와는 무관하게 참조 변수의 타입으로 결정된다.
+
+```
+Parent ref = new Child();
+ref.id();
+```
+
+- ref의 타입이 Parent이므로 Parent.id()가 선택된다.
+- 실제 ref가 Child 객체를 가리키더라도 컴파일러는 Parent 기준으로 해석된다.
+- static 메서드는 "오버라이딩"이 아니라 "hind" 관계이다.
+
+
+
 **예외처리 (try-catch-finally)**
 
 ```
