@@ -219,3 +219,109 @@ HAVING COUNT(*) >= 2;
 ```
 
 WHERE(행 필터) -> GROUP BY (묶기) -> HAVING (필터) -> ORDER BY (정렬)
+
+
+
+#### 문제 1
+
+
+다음 중 employee 테이블에서
+직급(job)이 'MANAGER'인 사람의 이름(ename)과 급여(sal)를 출력하시오.
+단, 급여가 **3000 이상**인 경우만 출력한다.
+
+![[스크린샷 2025-10-30 오후 2.24.08.png]]
+
+내 정답 ✅ 
+> SELECT ename, sal FROM employee WHERE job = "MANAGER" and sal >= 3000
+
+> 표준 SQL에서는 작은 따옴표 ''를 사용, 조건 연결 and이므로
+> SELECT ename, sal FROM employee WHERE job = 'MANAGER' AND sal >= 3000
+
+#### 문제 2
+
+각 부서(deptno)별 평균 급여를 구하고,
+그 평균이 **2500 이상인 부서만** 출력하시오.
+
+![[스크린샷 2025-10-30 오후 2.25.59.png]]
+![[스크린샷 2025-10-30 오후 2.26.08.png]]
+
+내 정답 ❌
+> ...
+
+정답  ✅
+> SELECT deptno, AVG(sal) AS avg_sal FROM employee GROUP BY deptno HAVING AVG(sal) >= 2500;
+
+> 1. GROUP BY를 통해 부서별로 묶음
+> 2. HAVING을 AVG의 결과를 사용
+
+#### 문제 3
+
+
+employee 테이블과 dept 테이블을 조인하여
+직원 이름(ename)과 소속 부서 이름(dname)을 출력하시오.
+
+내 정답 ❌
+> SELECT ename, dname FROM JOIN employee, dept
+
+정답 ✅ 
+> SELECT e.ename, d.dname FROM employee e JOIN dept d ON e.deptno = d.deptno;
+
+> ON은 JOIN 조건으로 JOIN 조건이 없을 경우 모든 속성이 곱해지기 때문에 조건을 달아줘야함
+> employee와 dept이 중복된 값 deptno 값을 조인 조건으로 설정하여 JOIN을 진행
+
+
+#### 문제 4
+
+급여(sal)가 전체 직원의 평균 급여보다 높은 직원의 이름(ename)과 급여(sal)을 출력하시오.
+
+내 정답 🟡
+> SELECT ename, sal FROM employee WHERE sal >= 평균급여
+
+정답 ✅ 
+> SELECT ename, sal FROM WHERE sal >= (SELECT AVG(sal) FROM employee);
+
+> 서브 쿼리를 작성해 평균 급여를 계산
+
+#### 문제 5
+
+다음 employee 테이블에서,
+**각 부서별로 최고 급여(sal)를 받는 직원의 이름(ename), 부서번호(deptno), 급여(sal)**를 출력하시오.
+단, **서브쿼리(subquery)**를 사용할 것.
+
+|**ename**|**sal**|**deptno**|
+|---|---|---|
+|SMITH|800|20|
+|ALLEN|1600|30|
+|WARD|1250|30|
+|JONES|2975|20|
+|BLAKE|2850|30|
+|CLARK|2450|10|
+|KING|5000|10|
+
+출력 예시
+
+| **ename** | **deptno** | **sal** |
+| --------- | ---------- | ------- |
+| KING      | 10         | 5000    |
+| JONES     | 20         | 2975    |
+| BLAKE     | 30         | 2850    |
+```
+SELECT e.ename, e.deptno, e.sal
+FROM employee e
+JOIN (
+  SELECT deptno, MAX(sal) AS max_sal
+  FROM employee
+  GROUP BY deptno
+) m
+  ON e.deptno = m.deptno
+ AND e.sal = m.max_sal;
+```
+
+> 1. SELECT : 선택한다 e.ename과 e.deptno, e.sal을
+> 2. FROM : employee(e)에서 
+> 3. JOIN : 합친다.
+> 4. SELECT deptno, MAX(sal) AS max_sal FROM employee GROUP BY deptno
+> 5. deptno의 중복을 제거하고(그룹으로 묶고) employee에서 deptno와 sal의 최댓값을 선택하고
+> 6. 거기서 e.deptno와 m.deptno가 같고 e.sal이 m.max_sal이 같은 값만 
+
+
