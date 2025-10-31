@@ -325,3 +325,64 @@ JOIN (
 > 6. 거기서 e.deptno와 m.deptno가 같고 e.sal이 m.max_sal이 같은 값만 
 
 
+2025.10.31.
+
+문제 1
+
+EMPLOYEE 테이블에서 DEPTNO가 30인 직원의 이름(ENAME)과 급여(SAL)를 출력하시오.
+단, 급여는 내림차순으로 정렬하시오.
+
+```
+SELECT ename, sal FROM employee WHERE deptno = 30 ORDER BY sal DESC;
+```
+
+문제 2
+
+EMPLOYEE 테이블에서 부서별(DEPTNO) 평균 급여(AVG(SAL))를 구하고,
+
+평균 급여가 **2500 이상인 부서**만 출력하시오.
+
+결과는 평균 급여의 내림차순으로 정렬하시오.
+
+```
+SELECT deptno, AVG(sal) FROM employee GROUP BY deptno HAVING AVG(sal) >= 2500 ORDER BY AVG(sal) DESC;
+
+```
+
+문제 3
+
+EMPLOYEE 테이블과 DEPT 테이블을 조인하여,
+
+직원 이름(ENAME)과 부서 이름(DNAME)을 출력하시오.
+
+단, 부서번호(DEPTNO)가 일치하는 경우만 출력하시오.
+
+```
+SELECT e.ename, d.dname FROM employee e JOIN dept d ON e.deptno = d.deptno;
+```
+
+
+문제 4
+
+EMPLOYEE 테이블에서 **전체 평균 급여보다 높은 급여를 받는 직원의 이름과 급여**를 출력하시오.
+
+결과는 급여 기준으로 내림차순 정렬하시오.
+
+```
+SELECT ename, sal FROM employee WHERE sal > (SELECT AVG(sal) FROM employee) ORDER BY sal DESC;
+```
+
+
+문제 5
+
+EMP30 테이블에는 **30번 부서 직원**,
+
+EMP40 테이블에는 **40번 부서 직원**이 저장되어 있다.
+
+두 테이블에 모두 존재하는 직원(ENAME)의 이름을 출력하시오.
+
+모르겠음
+
+```
+SELECT a.ename FROM EMP30 a JOIN EMP40 b ON a.ename = b.ename;
+```
