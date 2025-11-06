@@ -224,3 +224,84 @@ Integer x = (Integer) 0; // ClassCastException
 **Exception** : 최상위 예외 타입
 
 
+
+## 문제 해결
+
+```
+class A {
+
+  int a;
+
+  int b;
+
+}
+
+  public class Main {
+
+  static void func1(A m){
+
+   m.a *= 10;
+
+  }
+
+  static void func2(A m){
+
+    m.a += m.b;
+
+  }
+
+  public static void main(String args[]){
+
+  A m = new A();
+
+  m.a = 100;
+
+  func1(m);
+
+  m.b = m.a;
+
+  func2(m);
+
+  System.out.printf("%d", m.a);
+
+  }
+
+}
+```
+
+> 2000
+
+
+```
+class Car implements Runnable{
+
+  int a;
+
+  public void run(){
+
+     system.out.println("message")
+
+  }
+
+}
+
+public class Main{
+
+  public static void main(String args[]){
+
+    Thread t1 = new Thread(new ___());
+
+    t1.start();
+
+  }
+
+}
+```
+
+> Car
+
+> implements를 통해 Runnable 인터페이스를 받음
+> Runnable에서는 run() 메서드만 가지고 있음
+> Thread를 통해 스레드를 만듬
+> 
+> t1.start()를 통해 Car class를 별도의 흐름으로 실행

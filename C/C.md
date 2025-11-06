@@ -189,3 +189,100 @@ n2.next = NULL;
 
 이러면 value가 10 -> 20 -> NULL로 동작
 
+# 문제
+
+**다음 소스코드에서 입력값이 5가 들어왔을때 출력되는 값을 작성하시오.**
+
+```
+#include <stdio.h>
+
+int func(int a) {
+
+  if (a <= 1) return 1;
+
+  return a * func(a - 1);
+
+}
+
+int main() {
+
+  int a;
+
+  scanf("%d", &a);
+
+  printf("%d", func(a));
+
+}
+
+```
+
+> 120
+> 재귀 함수 문제
+
+**다음 중, 괄호 ( ) 안에 들어갈 연산자를 써서 정수를 역순으로 출력하는 알맞는 답을 작성하시오.**
+
+```
+#include <stdio.h>
+
+int main() {
+
+  int number = 1234;
+
+  int div = 10;
+
+  int result = 0;
+
+  while (number ( 1 ) 0) {
+
+    result = result * div;
+
+    result = result + number ( 2 ) div;
+
+    number = number ( 3 ) div;
+
+  }
+
+  printf("%d", result);  
+return 0;
+
+}
+```
+
+>  1. >
+>  2. %
+>  3. /
+
+
+```
+#include <stdio.h> 
+
+int isPrime(int number) { 
+
+  int i; 
+
+  for (i=2; i<number; i++) { 
+
+    if (number % i == 0) return 0; 
+
+  } 
+
+  return 1; 
+
+} 
+
+int main(void) { 
+
+  int number = 13195, max_div=0, i; 
+
+  for (i=2; i<number; i++) 
+
+  if (isPrime(i) == 1 && number % i == 0) max_div = i; 
+
+  printf("%d", max_div); 
+
+  return 0; 
+
+}
+```
+
+> 29
