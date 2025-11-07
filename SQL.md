@@ -58,6 +58,10 @@ ALTER TABLE 학생 ADD 학점 VARCHAR(2);
 ALTER TABLE 학생 DROP COLUMN 학점;
 ```
 
+**CASCADE**
+
+- CASCADE 옵션을 사용하여 연쇄적으로 묶여 있는것들을 전부 삭제
+
 ### 1. 데이터 넣기 / 바꾸기 / 지우기 (DML : INSERT / UPDATE / DELETE)
 
 **INSERT - 행(ROW) 추가**

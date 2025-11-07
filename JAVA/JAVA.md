@@ -128,6 +128,8 @@ class Child extends Parent { ... }
 
 ### 오해하는 override 관계
 
+---
+
 static 메서드의 경우 클래스에 속한 메서드이며 객체 (인스턴스)에 속한 메서드가 아니다.
 
 
@@ -160,6 +162,74 @@ ref.id();
 - ref의 타입이 Parent이므로 Parent.id()가 선택된다.
 - 실제 ref가 Child 객체를 가리키더라도 컴파일러는 Parent 기준으로 해석된다.
 - static 메서드는 "오버라이딩"이 아니라 "hind" 관계이다.
+
+
+```
+ref.x(2)는 인스턴스 메서드이다.  
+인스터스 매서드는 오버라이딩 대상이기에 Child의 {return i+3}이 실행  
+ref.x는 5가 된다.  
+  
+ref.id()는 정적 메서드이다.  
+따라서 오버라이딩 되지 않으며, 타입을 기준으로 컴파일 시점에 바인딩된다. ref의 타입이 Parent이기에 Parant.id.()가 호출된다. 따라서 "P"가 된다  
+  
+결과물은 5P
+```
+
+- 인스턴스 메서드 : 객체에 묶인 메서드, this가 있고 런타임에 실제 객체 타입을 기준으로 호출 대상이 결정됨
+
+- 정적 메서드 : 클래스에 묶인 메서드, this가 없고 컴파일 시점에 참조 변수의 타입으로 호출, 대상을 결정함
+
+- 정적 static이 붙어있으면, 객체 없이도 호출이 됨
+- 따라서 ref의 타입이 parent이니까 parent.id()가 실행됨
+
+---
+
+
+```
+class B {
+	int x = 3;
+	int getX() {
+		return x * 2;
+	}
+}
+
+class A extends B {
+	int x = 7;
+	@Override
+	int getX() {
+		return x * 3;
+	}
+}
+
+public class Annotation {
+	public static void main(String[] args) {
+		B b1 = new A(); 
+		A b2 = new A(); 
+		System.out.print(b1.getX() + b1.x + b2.getX() + b2.x);
+	}
+}
+```
+
+이건 기본 오버라이딩 문제 (같은 문제만 몇번 틀렸는지 모르겠다)
+
+**변수는 선언된 타입의 것을 사용**
+**메서드는 선언된 메서드 것을 사용**
+
+b1.getX()는 B의 타입을 가지지만 A의 메서드를 이용, 따라서 7 * 3 = 21
+b1.x는 B의 타입을 가지므로 3
+b2.getX()는 A 타입의 A의 메서드를 이용, 따라서 7 * 3 = 21
+b2.x는 A의 타입을 가지므로 7
+
+따라서 정답은 52
+
+---
+
+### this
+
+- this는 현재 객체 자신을 가리키는 참조 변수이다
+- this.a는 해당 객체의 맴버 변수를 불러오는 형태
+
+---
 
 
 

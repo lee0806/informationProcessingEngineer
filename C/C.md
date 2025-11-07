@@ -60,6 +60,47 @@ int *p = &x; // p는 x의 주소를 저장
 int *pp = &p; // pp는 p의 주소를 저장
 ```
 
+“**별표( * )는 문을 열고, 앰퍼샌드( & )는 문을 닫는다.**”
+
+## 문제
+
+```
+void func1(int** arr, int size) {
+    for (int i = 0; i < size; i++) {
+        *(*arr + i) = (*(*arr + i) + i) % size;
+    }
+}
+
+void func2(int* num, int* arr) {
+    *num = arr[*num % 4];
+}
+
+int main() {
+    int arr[] = {3, 1, 4, 1, 5};
+    int* p = arr;     // p는 arr의 첫 원소(&arr[0])를 가리킴
+    int** pp = &p;    // pp는 p의 주소를 가리킴(이중 포인터)
+    int num = 6;
+
+    func1(pp, 5);
+    func2(&num, arr);
+    printf("%d", num);
+}
+```
+
+> func1 에서 pp와 5를 받음
+> 0번부터 4번까지 실행
+> 여기서 arr은 pp를 뜻함
+> * (* pp + i)는 (p[i]), 즉 arr[i]가 되므로 
+> pass 0 : arr[0] = arr[0] + 0 % 5 -> arr[0] = 3 % 5 따라서 arr[0] = 3
+> pass 1 : arr[1] = arr[1] + 1 % 5 -> arr[1] = 2 % 5 따라서 arr[0] = 2
+> pass 2 : arr[2] = arr[2] + 2 % 5 -> arr[2] = 6 % 5 따라서 arr[0] = 1
+> pass 3 : arr[3] = arr[3] + 3 % 5 -> arr[0] = 4 % 5 따라서 arr[0] = 4
+> pass 4 : arr[4] = arr[4] + 4 % 5 -> arr[4] = 9 % 5 따라서 arr[0] = 4
+> 따라서 배열 arr[] = {3, 2, 1, 4, 4}로 정렬
+> 그 후 func2 실행
+> * num = arr[6 % 4] -> num = arr[2] -> num = 1
+> 출력값은 : 1
+
 ### 메모리 공간의 종류
 
 **스택**
